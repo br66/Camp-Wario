@@ -4,9 +4,9 @@ using System.Collections;
 public class PlayerClass : MonoBehaviour
 {
     public Transform camera;
-
+    public float rate = 1.0f;
     public Vector3 eulerAngles;
-
+    public float answerfor;
 	// Use this for initialization
 	void Start () {
 	
@@ -19,12 +19,14 @@ public class PlayerClass : MonoBehaviour
 
         if (eulerAngles.z > 20.0f && eulerAngles.z < 90.0f)
         {
-            gameObject.transform.Translate(Vector3.left * 0.05f);
+            gameObject.transform.Translate(Vector3.left * camera.transform.rotation.z/rate);
         }
 
         if (eulerAngles.z < 350.0f && eulerAngles.z > 270.0f)
         {
-            gameObject.transform.Translate(Vector3.right * 0.05f);
+            gameObject.transform.Translate(Vector3.left  * camera.transform.rotation.z/rate);
+            
         }
+        answerfor = camera.transform.rotation.z / rate;
     }
 }
