@@ -5,8 +5,14 @@ public class PlayerClass : MonoBehaviour
 {
     public Transform camera;
     public float rate = 1.0f;
-    public Vector3 eulerAngles;
-    public float answerfor;
+    Vector3 eulerAngles;
+    float answerfor;
+
+    public int health = 3;
+    public int ballStock = 0;
+
+    public GameObject ball;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -17,16 +23,35 @@ public class PlayerClass : MonoBehaviour
     {
         eulerAngles = camera.eulerAngles;
 
-        if (eulerAngles.z > 20.0f && eulerAngles.z < 90.0f)
-        {
-            gameObject.transform.Translate(Vector3.left * camera.transform.rotation.z/rate);
-        }
+        if (health < 0)
+            health = 0;
 
-        if (eulerAngles.z < 350.0f && eulerAngles.z > 270.0f)
-        {
+        if (ballStock > 3)
+            ballStock = 3;
+
+        if (eulerAngles.z > 10.0f && eulerAngles.z < 90.0f)
+            gameObject.transform.Translate(Vector3.left * camera.transform.rotation.z/rate);
+
+        if (eulerAngles.z < 360.0f && eulerAngles.z > 270.0f)
             gameObject.transform.Translate(Vector3.left  * camera.transform.rotation.z/rate);
-            
+
+        if (transform.position.x > 3.5f)
+            transform.position = new Vector3(3.5f, transform.position.y, transform.position.z);
+
+        if (transform.position.x < -7)
+            transform.position = new Vector3(-7.0f, transform.position.y, transform.position.z);
+
+        // If the cardboard button is touched
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            if (ballStock == 3)
+            {
+                // need to use camera's rotation
+                Instantiate(ball, transform.position, transform.GetChild(0).rotation);
+                ball.GetComponent<DodgeballClass>().speed = -10;
+
+                ballStock = 0;
+            }
         }
-        answerfor = camera.transform.rotation.z / rate;
     }
 }

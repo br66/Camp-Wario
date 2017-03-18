@@ -88,9 +88,15 @@ public class GvrReticlePointer : GvrBasePointer {
   /// The targetObject is the object the user is pointing at.
   /// The intersectionPosition is where the ray intersected with the targetObject.
   /// The intersectionRay is the ray that was cast to determine the intersection.
-  public override void OnPointerHover(GameObject targetObject, Vector3 intersectionPosition,
-      Ray intersectionRay, bool isInteractive) {
+  public override void OnPointerHover(GameObject targetObject, Vector3 intersectionPosition, Ray intersectionRay, bool isInteractive)
+  {
     SetPointerTarget(intersectionPosition, isInteractive);
+    
+    if(targetObject.tag == "Enemy")
+    {
+            targetObject.transform.GetChild(0).gameObject.SetActive(true);
+            targetObject.transform.GetChild(0).GetComponent<GazeClass>().TimerOn();
+    }
   }
 
   /// Called when the user's look no longer intersects an object previously
@@ -101,7 +107,13 @@ public class GvrReticlePointer : GvrBasePointer {
     reticleDistanceInMeters = kReticleDistanceMax;
     reticleInnerAngle = kReticleMinInnerAngle;
     reticleOuterAngle = kReticleMinOuterAngle;
-  }
+
+        if (targetObject.tag == "Enemy")
+        {
+            targetObject.transform.GetChild(0).GetComponent<GazeClass>().TimerOff();
+            targetObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
+    }
 
   /// Called when a trigger event is initiated. This is practically when
   /// the user begins pressing the trigger.
