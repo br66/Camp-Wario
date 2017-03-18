@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class PlayerClass : MonoBehaviour
@@ -52,6 +53,11 @@ public class PlayerClass : MonoBehaviour
 
                 ballStock = 0;
             }
+        }
+
+        if (health == 0)
+        {
+            SceneManager.LoadScene("gameOver");
         }
     }
 }
