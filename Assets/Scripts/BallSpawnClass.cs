@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class BallSpawnClass : MonoBehaviour
@@ -17,10 +18,13 @@ public class BallSpawnClass : MonoBehaviour
 
     public float speed;
 
+    private Vector3 offset;
+
     // Use this for initialization
     void Start ()
     {
         InvokeRepeating("Spawn", 4.0f, 2.0f);
+        offset = new Vector3(0, 0, -1);
 	}
 	
 	// Update is called once per frame
@@ -40,6 +44,15 @@ public class BallSpawnClass : MonoBehaviour
     void Spawn()
     {
         // Instantiate the spawn target at the spawner's position and rotation. 
-        Instantiate(spawnTarget, transform.position, transform.rotation);
+        Instantiate(spawnTarget, transform.position + offset, transform.rotation);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene("gameOver");
+        }
     }
 }

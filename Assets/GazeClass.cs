@@ -36,7 +36,8 @@ public class GazeClass : MonoBehaviour
         }
         else if (time <= 0)
         {
-            gazed = true;
+            if (transform.parent.gameObject.tag == "Enemy")
+                gazed = true;
         }
     }
 
