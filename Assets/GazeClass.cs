@@ -27,6 +27,7 @@ public class GazeClass : MonoBehaviour
 
 	}
 
+    // called in OnPointerHover (GvrReticlePointer.cs)
     public void TimerOn()
     {
         if (time > 0)
@@ -41,6 +42,7 @@ public class GazeClass : MonoBehaviour
         }
     }
 
+    // called in OnPointerExit (GvrReticlePointer.cs)
     public void TimerOff()
     {
         time = maxTime;

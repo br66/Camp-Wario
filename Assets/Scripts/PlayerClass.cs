@@ -45,12 +45,15 @@ public class PlayerClass : MonoBehaviour
         // If the cardboard button is touched
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
+            // If I have collected enough dodgeballs...
             if (ballStock == 3)
             {
-                // need to use camera's rotation
+                // Instantiate object using Main Camera's rotation
                 Instantiate(ball, transform.position, transform.GetChild(0).rotation);
+                // Change default speed, Enemy dodgeball and player dodgeball share same class.
+                // Enemy dodgeball go in different direction than player ball, hence the speed change (to the opposite direction)
                 ball.GetComponent<DodgeballClass>().speed = -10;
-
+                // Reset how many dodgeball's collected
                 ballStock = 0;
             }
         }

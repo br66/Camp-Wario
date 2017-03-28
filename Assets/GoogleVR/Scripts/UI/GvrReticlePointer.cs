@@ -82,6 +82,7 @@ public class GvrReticlePointer : GvrBasePointer {
     SetPointerTarget(intersectionPosition, isInteractive);
   }
 
+/* CHANGED */
   /// Called every frame the user is still pointing at a valid GameObject. This
   /// can be a 3D or UI element.
   ///
@@ -92,6 +93,7 @@ public class GvrReticlePointer : GvrBasePointer {
   {
     SetPointerTarget(intersectionPosition, isInteractive);
     
+    /* MY STUFF */
     if(targetObject.tag == "Enemy")
     {
             targetObject.transform.GetChild(0).gameObject.SetActive(true);
@@ -99,6 +101,7 @@ public class GvrReticlePointer : GvrBasePointer {
     }
   }
 
+/* CHANGED */
   /// Called when the user's look no longer intersects an object previously
   /// intersected with a ray projected from the camera.
   /// This is also called just before **OnInputModuleDisabled** and may have have any of
@@ -107,7 +110,8 @@ public class GvrReticlePointer : GvrBasePointer {
     reticleDistanceInMeters = kReticleDistanceMax;
     reticleInnerAngle = kReticleMinInnerAngle;
     reticleOuterAngle = kReticleMinOuterAngle;
-
+        
+        /* MY STUFF */
         if (targetObject.tag == "Enemy")
         {
             targetObject.transform.GetChild(0).GetComponent<GazeClass>().TimerOff();

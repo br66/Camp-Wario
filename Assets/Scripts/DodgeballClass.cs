@@ -5,6 +5,8 @@ public class DodgeballClass : MonoBehaviour
 {
     public PlayerClass player;
     public int speed;
+
+    // All dodgeballs have GazeTimer child object on them
     private GazeClass gazeTimer;
 
     // Use this for initialization
@@ -20,6 +22,7 @@ public class DodgeballClass : MonoBehaviour
     {
         this.GetComponent<Rigidbody>().AddForce(transform.forward * -speed);
 
+        // if this boolean is true
         if (gazeTimer.gazed)
         {
             player.ballStock++;
